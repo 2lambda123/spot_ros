@@ -6,6 +6,8 @@ find_package(catkin REQUIRED COMPONENTS
   nav_msgs
   sensor_msgs
   std_msgs
+  actionlib
+  actionlib_msgs
   message_generation
 )
 
@@ -18,6 +20,7 @@ add_message_files(
   LeaseArray.msg
   LeaseOwner.msg
   Metrics.msg
+  MobilityParams.msg
   SystemFault.msg
   WiFiState.msg
   BatteryState.msg
@@ -31,14 +34,28 @@ add_message_files(
   SystemFaultState.msg
 )
 
+add_service_files(
+  FILES
+  ListGraph.srv
+  SetLocomotion.srv
+  ClearBehaviorFault.srv
+)
+
+add_action_files(
+  FILES
+  NavigateTo.action
+  Trajectory.action
+)
+
 generate_messages(
   DEPENDENCIES
   std_msgs
   geometry_msgs
+  actionlib_msgs
 )
 
 catkin_package(
-  CATKIN_DEPENDS message_runtime
+  CATKIN_DEPENDS message_runtime actionlib
 )
 
 include_directories(
